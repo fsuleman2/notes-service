@@ -1,115 +1,79 @@
 # Notes Service
 
-A modern, RESTful API for managing notes, built with Spring Boot, JPA, and PostgreSQL.
-
----
+A RESTful Notes Management API built with **Java 17, Spring Boot 3, Spring Data JPA, and PostgreSQL**. The application provides APIs to create, retrieve, update, delete, and paginate notes, following clean REST API design principles.
 
 ## ✨ Features
 
-- **Create, Read, Update, Delete (CRUD) Notes**
-- **Pagination** for listing notes
-- **RESTful API** design
-- **PostgreSQL** database integration
-- **Spring Data JPA** for ORM
-- **Custom API responses**
-- **Error handling**
-- **Ready for Docker & Cloud deployment**
+- **CRUD Operations:** Create, read, update, and delete notes.
+- **Pagination:** Retrieve notes efficiently using configurable pagination.
+- **RESTful API Design:** Versioned API endpoints.
+- **PostgreSQL Integration:** Persistent relational database storage.
+- **Spring Data JPA:** Database interaction and ORM.
+- **Custom API Responses:** Consistent response structures.
+- **Error Handling:** Application-level exception handling.
+- **Unit Testing:** Test support using JUnit and Spring Boot Test.
+- **Deployment Ready:** Suitable for containerization and cloud deployment with additional configuration.
 
----
+## 🛠️ Technology Stack
 
-## 📦 Tech Stack
+| Technology | Purpose |
+|---|---|
+| Java 17 | Programming language |
+| Spring Boot 3.5 | Application framework |
+| Spring Data JPA | Data persistence |
+| PostgreSQL | Relational database |
+| Maven | Dependency and build management |
+| Lombok | Boilerplate code reduction |
+| JUnit | Testing |
+| Redis | Dependency included; integration not yet configured |
 
-- Java 17
-- Spring Boot 3.5
-- Spring Data JPA
-- PostgreSQL
-- Maven
-- Lombok
-- Spring Boot DevTools
-- Spring Boot Starter Test (JUnit)
-- Redis (dependency included, not yet configured)
+## 🏗️ Application Overview
 
----
+The application exposes REST endpoints that allow clients to manage notes through HTTP requests.
+
+**Request flow:**
+
+```text
+Client
+  |
+  v
+REST Controller
+  |
+  v
+Service Layer
+  |
+  v
+Spring Data JPA Repository
+  |
+  v
+PostgreSQL Database
+```
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Java 17+
-- Maven
-- PostgreSQL (running on `localhost:5432` with user `postgres` and password `root123`)
 
-### 1. Clone the repository
-```sh
-git clone <your-repo-url>
+Ensure you have the following installed:
+
+- Java 17 or later
+- Maven (or use the included Maven Wrapper)
+- PostgreSQL
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/fsuleman2/notes-service.git
 cd notes-service
 ```
 
 ### 2. Configure the Database
-Edit `src/main/resources/application.properties` if you want to change DB credentials:
-```
-spring.datasource.url=jdbc:postgresql://localhost:5432/postgres?currentSchema=notes_schema
-spring.datasource.username=
-spring.datasource.password=
-```
 
-### 3. Build and Run
-```sh
-./mvnw spring-boot:run
-```
-Or on Windows:
-```sh
-mvnw.cmd spring-boot:run
-```
+Create a PostgreSQL database and configure the application properties.
 
-The service will start on [http://localhost:9090](http://localhost:9090)
+Update `src/main/resources/application.properties`:
 
----
-
-## 🛠️ API Endpoints
-
-Base URL: `/api/v1/note`
-
-| Method | Endpoint                         | Description            |
-| ------ | -------------------------------- | ---------------------- |
-| POST   | `/`                              | Create a new note      |
-| GET    | `/{noteId}`                      | Get note by ID (path)  |
-| GET    | `?noteId={noteId}`               | Get note by ID (query) |
-| GET    | `/`                              | Get all notes          |
-| GET    | `/page?pageNumber=1&pageSize=10` | Get paginated notes    |
-| PUT    | `/{id}`                          | Update a note          |
-| DELETE | `/{noteId}`                      | Delete a note          |
-
-### Example Note Object
-```json
-{
-  "title": "Sample Note",
-  "content": "This is a note.",
-  "addedDate": "2024-06-14T12:00:00.000+00:00",
-  "live": true
-}
-```
-
----
-
-## 🧪 Running Tests
-
-```sh
-./mvnw test
-```
-
----
-
-## 📄 License
-
-This project is licensed under the Apache License 2.0.
-
----
-
-## 🙏 Acknowledgements
-- [Spring Boot](https://spring.io/projects/spring-boot)
-- [PostgreSQL](https://www.postgresql.org/)
-- [Lombok](https://projectlombok.org/)
-
----
-
-> Made with ❤️ by Syed
+```properties
+spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/postgres?currentSchema=notes_schema}
+spring.datasource.username=${DB_USERNAME}
+spring.datasource.password=${DB_PASSWORD}
+``
